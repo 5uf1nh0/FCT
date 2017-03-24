@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+      <title>Sign Up</title>
+      <link type="text/css" href="style.css" rel="stylesheet" />
+  </head>
+  
+  <body>
+  
+    <div id="signUp">
+      <form id ="form_signUp" action="registro.php" method="post">
+      
+	<p><label>User Name</label></p> 
+	  <p><input type="text" name="user"></p>
+	  
+	<p><label>Password</label>
+	  <p><input type="password" name="pass"></p>
+	  
+	  <p><label>Date Of Birth</label></p> 
+	  <p><input type="date" name="fecha"></p>
+	  
+	<p><label>Sex</label>
+	  <p>
+	    <p><input name="sexo" type="radio" value="0"/> Masculino</p>
+	    <p><input name="sexo" type="radio" value="1"/> Femenino</p>
+	  </p>
+	  
+	<p><input id="boton" type="submit" value="Aceptar" /></p>
+
+      </form>
+    </div>
+    
+  </body>
+</html>
+
