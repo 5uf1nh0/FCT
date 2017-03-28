@@ -4,7 +4,9 @@
 <html lang="es">
     <head>
         <meta http-equiv="content-Type" content="text/html; charset=UTF-8">
+        <link type="text/css" href="style.css" rel="stylesheet" />
         <title>fxl_template Sign Up</title>
+        
     </head>
     <body>
       {content}

@@ -10,17 +10,43 @@ form{
   margin: auto;
   max-width:400px;
 }
+
 label{
     font: bold 18px arial;
 }
+
 button{
   border-radius: 12px;
   background-color: #000000 ;
   color: #CABF2B;
 }
 
+
+
 input{
   border-radius: 12px;
   background-color: #000000 ;
   color: #CABF2B;
+}
+
+browse{
+  position:relative;
+}
+
+.Textbox{
+  width: 100px; 
+  height: 20px;
+}
+
+.dob{
+  width: 50px; 
+  height: 20px;
+}
+.radbut{
+  font: bold 18px arial;
+}
+
+#icon{
+  height: 42px;
+  width: 42px;
 }

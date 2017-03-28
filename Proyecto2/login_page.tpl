@@ -6,6 +6,8 @@
         <meta http-equiv="content-Type" content="text/html; charset=UTF-8">
         <link type="text/css" href="style.css" rel="stylesheet" />
         <title>fxl_template LogIn</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="myScript.js" type="text/javascript"></script>
     </head>
     <body>
       {content}

@@ -2,10 +2,11 @@
 INCLUDE ('conexion.php');
 
 $user = $_POST['user'];
-$pass = $_POST['pass'];
-$dob = $_POST['fecha'];
+$pass = md5($_POST['pass']);
+$dob =  $_POST['anio']. "-" . $_POST['mes'] . "-" . $_POST['dia'];
 $sex = $_POST['sexo'];
-$site=$_POST['site'];
+$site = $_POST['site'];
+$icon = $_POST['icon'];
 
 $mysqli = new mysqli($dbhost , $dbusuario , $dbpassword, $db);
 if ($mysqli->connect_errno) {
@@ -19,11 +20,8 @@ $sqlid = "SELECT id FROM users WHERE `name` ='". $user ."' and `password`='". $p
 $res = $mysqli->query($sqlid);
 $row = $res->fetch_assoc();
 
-$sql2 = "INSERT INTO sites(iduser,website) VALUES (" . $row['id'] . ", '" . $site . "');";
+$sql2 = "INSERT INTO sites(iduser,website,icon) VALUES (" . $row['id'] . ", '" . $site . "', '" . $icon . "');";
 $res2 = $mysqli->query($sql2);
-
-//$row = $res->fetch_assoc();
-//echo $row['_msg'];
 
 header("Location: http://proyecto2.dev.com/login.php");
 
