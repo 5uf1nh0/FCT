@@ -1,0 +1,31 @@
+ 
+#Acces{
+    background:#20B2AA;
+    border:solid #ccc;
+    /*aumentando el 2px 'aparece' un borde*/
+    border-width: 2px 5;
+    padding:15px 35px;
+}
+ 
+label{
+    color: #3D3D3D;
+    font-weight: bold
+}
+
+#LogIn{
+    background: #ccc;
+    background: -webkit-linear-gradient(top,#fc6,#f63);
+    background: linear-gradient(top,#fc6,#f63);
+    /*Color del texto*/
+    color: #20B2AA;
+    width: 120px;
+}
+
+#SignUp{
+    background: #ccc;
+    background: -webkit-linear-gradient(top,#fc6,#f63);
+    background: linear-gradient(top,#fc6,#f63);
+    /*Color del texto*/
+    color: #20B2AA;
+    width: 120px;
+}
