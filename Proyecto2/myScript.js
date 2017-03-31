@@ -52,25 +52,6 @@ function clearForm(){
   
 }
 
-function upLoad(){
-  
-  document.getElementById('form_upload').submit();
-  /*var $form = $(this);
-  var $inputs = $form.find("input");
-  var serializedData = $form.serialize();
-
-  request = $.ajax({
-	    url: action,
-	    type: "post",
-	    data: serializedData
-	});
-  */
-  
-  
-  //$("#upload").action = action;
-  //$("#upload").submit();
-}
-
 //Script from LogInForm
 $(document).ready(function(){
   
@@ -88,14 +69,14 @@ $(document).ready(function(){
       var serializedData = $form.serialize();
       
       request = $.ajax({
-	    url: "/login.php",
+	    url: "login.php",
 	    type: "post",
 	    data: serializedData
 	});
       request.done(function (response, textStatus, jqXHR){
+	addResetButton();
 	if(response == 0){
 	  errorLogin();
-	  addResetButton();
 	}else if(response == 1){
 	  window.location.href = 'profile.php';
 	}
@@ -111,28 +92,31 @@ $(document).ready(function(){
         $("#mySites").toggle();
     });
     
-    $("#form_sites").submit(function(event){
+    $("#form_upload").submit(function(event){
       var request;
+      //var form = $('form')[0];
+      //var formData = new FormData(form);
+      var form = document.getElementById('form_upload');
+      formData = new FormData(form);
+     
       event.preventDefault();
-      
+  
+
       if (request) {
 	request.abort();
       }
-      
-      var $form = $(this);
-      var $inputs = $form.find("input");
-      var serializedData = $form.serialize();
-      
-      request = $.ajax({
-	    url: "/update.php",
-	    type: "post",
-	    data: serializedData
-	});
-      request.done(function (response, textStatus, jqXHR){
-	document.getElementById("mySites").innerHTML = response;
-	      $("#result").html('Submitted successfully!');
-      });                   
-      
-  });
     
+      request=$.ajax({
+	url: 'profile.php',
+	data:  formData,
+	type: 'POST',
+	contentType: false,
+	processData: false 
+      });
+      
+      request.done(function (response, textStatus, jqXHR){
+      document.getElementById("sitesTable").innerHTML=response;
+
+      });
+   }); 
 });

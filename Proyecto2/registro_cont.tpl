@@ -39,16 +39,3 @@
 
 </div>
   <!-- END signup -->
-  
-  
-  <!-- START show -->
-  <p>{varn1}</p>
-  <p>pass</p>
-  <p>fecha</p>
-  <p>sexo</p>
-  <ul>
-  <!-- START bla -->
-  <li>{random}</li>
-  <!-- END bla -->
-  </ul>
-  <!-- END show -->

@@ -1,5 +1,5 @@
 <?php
-session_unset();
+//session_unset();
 
 ini_set('session.save_path', '/nasshare/webs/proyecto2/session');
 session_start();
@@ -11,8 +11,8 @@ $fxlt = new fxl_template('login_page.tpl');
 $fxlt_cont = new  fxl_template('login_cont.tpl');
 $fxlt_cont_reg = $fxlt_cont->get_block('login');
 $fxlt_cont->assign('login',$fxlt_cont_reg);
-$_SESSION['user_id'] ='';
 
+$_SESSION['user_id'] ='';
 
 if(isset($_REQUEST['user']) && isset($_REQUEST['pass'])){
  
