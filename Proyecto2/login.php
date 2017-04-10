@@ -5,21 +5,25 @@ ini_set('session.save_path', '/nasshare/webs/proyecto2/session');
 session_start();
 
 INCLUDE ('conexion.php');
+INCLUDE ('DBHandler.php');
+//INCLUDE ('User.php');
 require_once('fxl_template.inc.php');
 
-$fxlt = new fxl_template('login_page.tpl');
+$fxlt = new fxl_template('page.tpl');
 $fxlt_cont = new  fxl_template('login_cont.tpl');
 $fxlt_cont_reg = $fxlt_cont->get_block('login');
 $fxlt_cont->assign('login',$fxlt_cont_reg);
 
 $_SESSION['user_id'] ='';
-
+//$nUser = new User();
 if(isset($_REQUEST['user']) && isset($_REQUEST['pass'])){
- 
+  //$nUser->setName($_REQUEST['user']);
+  //$nUser->setPass(md5($_REQUEST['pass']));
   $user = $_REQUEST['user'];
   $pass = md5($_REQUEST['pass']);
-
+  
   $mysqli = new mysqli($dbhost , $dbusuario , $dbpassword, $db);
+  $db = new DBHandler($mysqli);
 
   if ($mysqli->connect_errno) {
       echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -27,15 +31,29 @@ if(isset($_REQUEST['user']) && isset($_REQUEST['pass'])){
 
   $sql = "SELECT users.id,users.`name`
 	  FROM users
-	  WHERE users.`name` ='". $user ."' and users.`password`='". $pass ."';";
+	  WHERE users.`name` = ? and users.`password`= ?;";
+  
+  /*
+  $db->add('s' , $nUser->getName();
+  $db->add('s' , $nUser->getPass);
+  */  
+  $db->add('s' , $user);
+  $db->add('s' , $pass);
+  $db->prepareStatement($sql);
+  
+  $res = $db->query();
+  $db->clear();
+  
+  foreach ($res as $fila) {
+      $user_id = $fila['id'];
+      $user_name = $fila['name']; 
+  }
 
-  $res = $mysqli->query($sql);
-  $row = $res->fetch_assoc();
-
-  $_SESSION['user_id'] = $row['id'];
-  $_SESSION['user']=$row['name'];
+  $_SESSION['user_id'] = $user_id;
+  $_SESSION['user'] = $user_name;
   
 }
+
   if((isset($_REQUEST['user'])&& isset($_REQUEST['pass'])) && $_SESSION['user_id']==''){
     echo 0;
   } else {
@@ -47,6 +65,5 @@ if(isset($_REQUEST['user']) && isset($_REQUEST['pass'])){
       $fxlt->display();
     }
   }
-  
 
 ?>

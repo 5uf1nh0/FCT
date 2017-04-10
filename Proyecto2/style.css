@@ -1,8 +1,13 @@
-h2{
+body {
+    padding: 20px;
+}
+
+h1,h2{
   text-align: center;
 }
 
 form{
+  float: center;
   text-align: center;
   border-style:solid;
   border-radius: 15px 50px;
@@ -11,8 +16,43 @@ form{
   max-width:400px;
 }
 
+#mySites{
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+#end{
+  clear: left; 
+}
+
+.logout{
+  text-align:center;
+  float: right;
+}
+
+div{
+  clear:right;
+}
+
+.cell{
+  float: left;
+  text-align: center;
+  border-style: solid;
+  border-radius: 15px 15px;
+  background: #CABF2B;
+  margin-left: 20px;
+  margin-top: 20px;
+  padding-top: 10px;
+  width: 22%;
+  height: 200px;
+  max-width:50%;
+  max-height:400px;
+  min-width:15%;
+  min-height:100px;
+}
+
 label{
-    font: bold 18px arial;
+  font: bold 18px arial;
 }
 
 button{
@@ -40,11 +80,88 @@ browse{
   width: 50px; 
   height: 20px;
 }
+
 .radbut{
   font: bold 18px arial;
 }
 
+.highlight { 
+  background: #FFFF99; 
+}
+
 #icon{
-  height: 42px;
-  width: 42px;
+  height: 128px;
+  width: 128px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-attachment: fixed;
+}
+
+.back-to-top {
+    position: fixed;
+    bottom: 2em;
+    right: 0px;
+    text-decoration: none;
+    text-align: center;
+    color: #000000;
+    background-color: rgba(235, 235, 235, 0.80);
+    font-size: 10px;
+    padding: 1em;
+    display: none;
+}
+
+.back-to-top:hover {    
+    background-color: rgba(135, 135, 135, 0.50);
+}
+
+
+
+
+.column-1 {
+    width: 6.86666666667%;
+}
+
+.column-2 {
+    width: 15.3333333333%;
+}
+
+.column-3 {
+    width: 23.8%;
+}
+
+.column-4 {
+    width: 32.2666666667%;
+}
+
+.column-5 {
+    width: 40.7333333333%;
+}
+
+.column-6 {
+    width: 49.2%;
+}
+
+.column-7 {
+    width: 57.6666666667%;
+}
+
+.column-8 {
+    width: 66.1333333333%;
+}
+
+.column-9 {
+    width: 74.6%;
+}
+
+.column-10 {
+    width: 83.0666666667%;
+}
+
+.column-11 {
+    width: 91.5333333333%;
+}
+
+.column-12 {
+    width: 100%;
 }
