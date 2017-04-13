@@ -8,10 +8,12 @@ require_once('fxl_template.inc.php');
 $id = $_SESSION['user_id'];
 
 
-$cssclass = 'column-4';
+$cssclass = 'column-' .$_POST['selected'];
 
 if(isset($_POST['selected']) && $_POST['selected'] !== ""){
+  $numCol = $_POST['selected'];
   $cssclass = 'column-' .(intval($_POST['selected']));
+  $_SESSION['n_col'] = 'column-' . $numCol;
 }
 
   $fxlt_cont = new  fxl_template('profile_cont.tpl');

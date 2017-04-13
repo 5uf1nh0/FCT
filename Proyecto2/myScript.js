@@ -74,8 +74,9 @@ $(document).ready(function(){
 	    data: serializedData
 	});
       request.done(function (response, textStatus, jqXHR){
-	addResetButton();
+	
 	if(response == 0){
+	  addResetButton();
 	  errorLogin();
 	}else if(response == 1){
 	  window.location.href = 'profile.php';
@@ -145,14 +146,8 @@ $(document).ready(function(){
     });
       
     request.done(function (response, textStatus, jqXHR){
-      
-    //var x = $('#list option:selected').text();
-    //var x = document.getElementById("#list").selectedIndex;
-      //document.getElementById('cell').setAttribute("style","width:"+w);
-      //document.getElementById("cell").style.width = w;
-      //$("#cell").width(w);
-      //$(".cell").css("width", w);
-      document.getElementById("mySites").innerHTML=response;
+      var myDiv=document.getElementById("mySites");
+      myDiv.innerHTML=response;
     });
    });
     
@@ -164,7 +159,6 @@ $(document).ready(function(){
       formData = new FormData(form);
      
       event.preventDefault();
-  
 
       if (request) {
 	request.abort();

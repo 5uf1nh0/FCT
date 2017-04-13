@@ -86,10 +86,11 @@ foreach ($resultSet as $fila) {
 }
 
   if($user_id != ''){
-    $cssclass = 'column-4';
-
+    
+    $cssclass = $_SESSION['n_col'];
+    
     if(isset($_POST['selected']) && $_POST['selected'] !== ""){
-      $cssclass = 'column-' .(intval($_POST['selected']));
+      $cssclass = 'column-' .(intval($numCol));
     }
   
     $nSite->showSites($user_id);
