@@ -17,12 +17,20 @@
       <input id="delete" type="submit" value="Delete" name="del"/>
     </p>   
   </form>
-    
+
+  <label>Elementos por fila:</label>
+  <select id="list" name="elements">
+   <option value="0"></option> 
+   <option value="1">3</option> 
+   <option value="2">4</option> 
+   <option value="3">5</option>
+</select>
+
 <div id="mySites" display="none">
  <!-- START sitestempfather -->
     <div id= "row">
     <!-- START sitestemp -->
-      <div class="cell">
+      <div id="cell" class="cell {cssclass}">
 	<img src="{icons}" id="icon"/>
 	<p id="site_check">
 	<label id="row_id" hidden>{rowID}</label>

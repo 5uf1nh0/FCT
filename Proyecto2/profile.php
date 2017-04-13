@@ -2,34 +2,21 @@
 ini_set('session.save_path', '/nasshare/webs/proyecto2/session');
 session_start();
 
-INCLUDE ('conexion.php');
-INCLUDE ('DBHandler.php');
-//INCLUDE ('User.php');
-//INCLUDE ('Site.php');
+INCLUDE ('Site.php');
 require_once('fxl_template.inc.php');
 
-//$nUser = new User();
-//$nSite = new Site();
 
 if (isset($_REQUEST['site'])){
   if ( $_REQUEST['site'] != ''){
     
-    
+    $id= $_SESSION['user_id'];
     $site= $_POST['site'];
     $icon = $_FILES['file']['name'];
+    
     $target_dir = "images/";
     $target_file = $target_dir . basename($_FILES["file"]["name"]);
     $uploadOk = 1;
     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-
-    $mysqli = new mysqli($dbhost , $dbusuario , $dbpassword, $db);
-    $db = new DBHandler($mysqli);
-    
-    if ($mysqli->connect_errno) {
-      echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    }
-    //$nUser->setIdUser($_SESSION['user_id']);
-    $id= $_SESSION['user_id'];
 
     // Comprueba si el file es una imagen a traves de su tamanio
     if(isset($_POST["submit"])) {
@@ -55,69 +42,43 @@ if (isset($_REQUEST['site'])){
     } else {
     //Inserta las variables en la base solo si ha podido mover el file y además recibo las 2 variables del POST
       if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)){
-	$sql = "INSERT INTO sites(iduser,website,icon) VALUES (?, ?, ?);";
-	$db->add('i' , $id);
-	$db->add('s' , $site);
-	$db->add('s' , $icon);
-	$db->prepareStatement($sql);
-	$db->clear();
+	$nSite = new Site($id,$site,$icon);
       }else{
 	  //Inserta en la DB $site y una imagen predefinida si $icon viene vacia y se ha podido mover el file
-	  $sql = "INSERT INTO sites(iduser,website,icon) VALUES (?, ?, ?);";
-	  $db->add('i' , $id);
-	  $db->add('s' , $site);
-	  $db->add('s' , $icon);
-	  $db->prepareStatement($sql);
-	  $db->clear();
+	  $nSite = new Site($id,$site);
       }
     }
 
-
-$sqlw = "SELECT sites.id,sites.website,sites.icon FROM sites WHERE iduser = ? and estado = ? ;";    
-
-$db->add('i' , $id);
-$db->add('i' , 1);
-$db->prepareStatement($sqlw);
-
-$resw = $db->query();
-$db->clear();
+$nSite->showSites($id);
     
 $fxlt_cont = new  fxl_template('profile_cont.tpl');
 $fxlt_cont_pro = $fxlt_cont -> get_block('profile');
 $fxlt_cont_site = $fxlt_cont_pro -> get_block('sitestempfather');
-    
-  foreach ($resw as $fila) {
-    if($fila['icon']==''){
-      $icon="images/dummy.jpeg";
-    }else{
-      $icon="images/".$fila['icon'];
-    }
-    $fxlt_cont_site->fill_block('sitestemp' , array('rowID' => $resw['id'],'sites' => $resw['website'], 'icons' => $icon));
 
-    $fxlt_cont_site -> display();
+$reSet = $nSite->getResult();
+
+foreach ($reSet as $fila) {
+  if($fila['icon']==''){
+    $icon="images/dummy.jpeg";
+  }else{
+    $icon="images/".$fila['icon'];
   }
- } 
+      
+  $fxlt_cont_site->fill_block('sitestemp' , array('rowID' => $fila['id'],'sites' => $fila['website'], 'icons' => $icon));
+}
+
+$fxlt_cont_site -> display();    
+  
+} 
 } else {
 
 $id = $_SESSION['user_id'];
 
-$mysqli = new mysqli($dbhost , $dbusuario , $dbpassword, $db);
-$db = new DBHandler($mysqli);
+$nSite = new Site($id);
+$nSite->showProfile($id);
+$resultSet = $nSite->getResult();
 
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-}
-
-$sql = "SELECT users.id,users.`name`,users.`date`,genero.sexo
-	FROM users,genero
-	WHERE users.id= ? and users.sex = genero.id;";
-
-$db->add('i' , $id);
-$db->prepareStatement($sql);
-$res = $db->query();
-$db->clear();
-
-foreach ($res as $fila) {
+foreach ($resultSet as $fila) {
   $f_nac =  strtotime($fila['date']);
   $fecha = date("j F Y",$f_nac);
   $user_id = $fila['id'];
@@ -125,19 +86,14 @@ foreach ($res as $fila) {
 }
 
   if($user_id != ''){
-    $est=1;
-    $sqlw = "SELECT sites.id,sites.website,sites.icon
-	    FROM sites
-	    WHERE sites.iduser = ? and sites.estado = ?;";
-    
-    $db->add('i',$user_id);
-    $db->add('i',$est);
-    $db->prepareStatement($sqlw);
-    
-    $resw = $db->query();
-    $db->clear();
+    $cssclass = 'column-4';
+
+    if(isset($_POST['selected']) && $_POST['selected'] !== ""){
+      $cssclass = 'column-' .(intval($_POST['selected']));
+    }
   
-  
+    $nSite->showSites($user_id);
+   
     $fxlt_principal= new fxl_template('page.tpl');
     $fxlt_cont = new  fxl_template('profile_cont.tpl');
 
@@ -148,15 +104,17 @@ foreach ($res as $fila) {
     $fxlt_cont_pro -> assign('name',$fila['name']);
     $fxlt_cont_pro -> assign('date',$fecha);
     $fxlt_cont_pro -> assign('sex',$fila['sexo']);
-
-    foreach ($resw as $fila) {
-	if($fila['icon']==''){
+    
+    $resultSet2 = $nSite->getResult();
+    
+    foreach ($resultSet2 as $fila2) {
+	if($fila2['icon']==''){
 	  $icon="images/dummy.jpeg";
 	}else{
-	  $icon="images/".$fila['icon'];
+	  $icon="images/".$fila2['icon'];
 	}
 	
-      $fxlt_cont_site->fill_block('sitestemp' , array('rowID' => $fila['id'],'sites' => $fila['website'], 'icons' => $icon)); 
+      $fxlt_cont_site->fill_block('sitestemp' , array('rowID' => $fila2['id'],'sites' => $fila2['website'], 'icons' => $icon, 'cssclass' => $cssclass)); 
     }
     
     $fxlt_cont_pro -> assign('sitestempfather', $fxlt_cont_site);// bloque

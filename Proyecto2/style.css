@@ -43,7 +43,7 @@ div{
   margin-left: 20px;
   margin-top: 20px;
   padding-top: 10px;
-  width: 22%;
+  width:22%;
   height: 200px;
   max-width:50%;
   max-height:400px;
@@ -119,23 +119,27 @@ browse{
 
 
 .column-1 {
-    width: 6.86666666667%;
-}
-
-.column-2 {
-    width: 15.3333333333%;
-}
-
-.column-3 {
-    width: 23.8%;
-}
-
-.column-4 {
-    width: 32.2666666667%;
+  width: 7%;  
+  /*width: 6.86666666667%;*/
 }
 
 .column-5 {
-    width: 40.7333333333%;
+  width: 17%;
+/*width: 15.3333333333%;*/
+}
+
+.column-4 {
+  width: 22%;
+  /*width: 23.8%;*/
+}
+
+.column-3 {
+  width: 30%;
+  /*width: 32.2666666667%;*/
+}
+
+.column-05 {
+  /*width: 40.7333333333%;*/
 }
 
 .column-6 {

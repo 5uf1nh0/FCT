@@ -91,7 +91,8 @@ $(document).ready(function(){
     $("#show").click(function(){
         $("#mySites").toggle();
     });
-    
+
+  
     $("#form_sites").submit(function(event){
       var request;
       var form = document.getElementById('form_sites');
@@ -103,8 +104,6 @@ $(document).ready(function(){
 	formData.append('checked[]',value);
       });
     
-      
-      //formData.append('checked[]',x);
       event.preventDefault();
 
       if (request) {
@@ -124,6 +123,38 @@ $(document).ready(function(){
       });
     });
     
+    $("#list").change(function(event){
+      var request;
+      var index = $('#list option:selected').text();
+      //var value = $('#list').val();
+      formData = new FormData();
+      formData.append('selected',index);
+    
+      event.preventDefault();
+      
+    if (request) {
+      request.abort();
+    }
+      
+    request=$.ajax({
+      url: 'refresh.php',
+      data:  formData,
+      type: 'POST',
+      contentType: false,
+      processData: false 
+    });
+      
+    request.done(function (response, textStatus, jqXHR){
+      
+    //var x = $('#list option:selected').text();
+    //var x = document.getElementById("#list").selectedIndex;
+      //document.getElementById('cell').setAttribute("style","width:"+w);
+      //document.getElementById("cell").style.width = w;
+      //$("#cell").width(w);
+      //$(".cell").css("width", w);
+      document.getElementById("mySites").innerHTML=response;
+    });
+   });
     
     $("#form_upload").submit(function(event){
       var request;
@@ -148,7 +179,7 @@ $(document).ready(function(){
       });
       
       request.done(function (response, textStatus, jqXHR){
-      document.getElementById("sitesTable").innerHTML=response;
+      document.getElementById("row").innerHTML=response;
 
       });
    }); 
